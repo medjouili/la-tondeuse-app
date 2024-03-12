@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="fr">
+<head>
+</head>
+<body>
+  <app-root></app-root>
+  <div class="lawn" *ngIf="lawnSize">
+    <div *ngFor="let mower of mowers" class="mower"
+         [style.left]="mower.x / lawnSize.width * 100 + '%'"
+         [style.top]="mower.y / lawnSize.height * 100 + '%'">
+      {{ mower.direction }}
+    </div>
+</div>
+</body>
+</html>

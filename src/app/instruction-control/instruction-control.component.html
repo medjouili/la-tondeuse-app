@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="fr">
+<head>
+</head>
+<body>
+  <app-root></app-root>
+  <form (ngSubmit)="submitInstructions()">
+    <input type="text" [(ngModel)]="sendInstructions" name="instructions">
+    <button type="submit">Envoyer Instructions</button>
+  </form>
+</body>
+</html>
