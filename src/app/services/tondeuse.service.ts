@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders} from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -10,13 +10,18 @@ export class TondeuseService {
 
   constructor(private http: HttpClient) { }
 
-  uploadFile(file: File): Observable<any> {
-    const formData: FormData = new FormData();
-    formData.append('fichier', file, file.name);
-
-    return this.http.post(this.apiUrl, formData).pipe(
-      catchError(this.handleError)
-    );
+  uploadFile(fichier: File): Observable<HttpResponse<any>> {
+    const formData = new FormData();
+    formData.append('fichier', fichier, fichier.name);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // Les en-têtes nécessaires seront automatiquement définis par le navigateur
+      })
+    };
+    
+    //return this.http.post(this.apiUrl, formData, httpOptions);
+    return this.http.post<any>(this.apiUrl, formData,  httpOptions);
+    
   }
   envoyerInstructions(instructions: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/control`, instructions)

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class MowerService {
   constructor(private http: HttpClient) {}
 
-  // Example method to get mower data from backend
+
   getMowerData() {
     return this.http.get('/api/mower');
   }

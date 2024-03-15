@@ -10,23 +10,24 @@ import { TondeuseService } from '../services/tondeuse.service';
 })
 export class FileuploadComponent {
 
-  selectedFile: File | null = null;
+  fichier: File | null = null;
+  resultat: string;
 
   constructor(private tondeuseService: TondeuseService) {}
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedFile = input.files[0];
+      this.fichier = input.files[0];
     }
   }
 
   upload() {
-    if (this.selectedFile) {
-      this.tondeuseService.uploadFile(this.selectedFile).subscribe({
+    if (this.fichier) {
+      this.tondeuseService.uploadFile(this.fichier).subscribe({
         next: (response) => {
           console.log('Upload successful', response);
-          this.traiterFichier();
+          this.chargerFichier;
         },
         error: (error) => {
           console.error('Error uploading file', error);
@@ -36,8 +37,18 @@ export class FileuploadComponent {
       console.error('No file selected');
     }
   }
+  chargerFichier() {
+    if (this.fichier) {
+      this.tondeuseService.envoyerInstructions(this.fichier)
+        .subscribe(response => {
+          console.log('Réponse reçue', response);
+          this.resultat = response as string;
+        }, error => {
+          console.error('Erreur lors de la soumission du fichier', error);
+        });
+    }
   
-traiterFichier() {
+/* traiterFichier() {
   this.tondeuseService.obtenirPositionTondeuse().subscribe({
     next: (positionFinale) => {
       console.log('Position finale de la tondeuse:', positionFinale);
@@ -46,5 +57,6 @@ traiterFichier() {
       console.error('Error during file processing', error);
     }
   });
+}*/
 }
 }

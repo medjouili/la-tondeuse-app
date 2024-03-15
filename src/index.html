@@ -13,12 +13,10 @@
   </header>
   <main>
     <section class="upload-container">
-      <h2>Uploader un fichier d'instructions pour la tondeuse</h2>
-      <input type="file" id="fileInput" />
-      <!-- Ajout d'un bouton pour soumettre le fichier -->
-      <button onclick="uploadFile()">Charger</button>
+      <h2>Choisir un fichier d'instructions pour la tondeuse</h2>
+      <input type="file" (change)="onFileSelected($event)"/>
+      <button onclick="uploadFile()">Charger le fichier</button>
     </section>
-    
     <section class="instruction-control-section">
       <h2>Contrôle d'Instructions</h2>
       <app-instruction-control></app-instruction-control>
@@ -32,12 +30,5 @@
   <footer>
     <p>&copy; 2024 Mon Application Angular. Tous droits réservés.</p>
   </footer>
-  <script>
-    function uploadFile() {
-      var fileInput = document.getElementById('fileInput');
-      // Traitement du fichier sélectionné
-      console.log(fileInput.files);
-    }
-  </script>
 </body>
 </html>
